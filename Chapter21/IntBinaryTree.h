@@ -1,13 +1,14 @@
+#include <iostream>
 
-class IntBinaryTreeNode
+class TreeNode
 {
 public:
 	int value;
-	IntBinaryTreeNode *left;
-	IntBinaryTreeNode *right;
+	TreeNode *left;
+	TreeNode *right;
 
 	// Constructor requiring value
-	IntBinaryTreeNode(int val) {
+	TreeNode(int val) {
 		value = val;
 		left = nullptr;
 		right = nullptr;
@@ -17,7 +18,16 @@ public:
 class IntBinaryTree
 {
 private:
-	IntBinaryTreeNode *root;
+	TreeNode *root;
+
+	// Private member functions
+	void insert(TreeNode*&, TreeNode*&);
+	void destroySubTree(TreeNode*&);
+	bool deleteNode(int, TreeNode*&);
+	bool makeDeletion(TreeNode*&);
+	void displayInOrder(TreeNode*) const;
+	void displayPreOrder(TreeNode*) const;
+	void displayPostOrder(TreeNode*) const;
 public:
 	// Constructor
 	IntBinaryTree();
@@ -26,10 +36,19 @@ public:
 	~IntBinaryTree();
 
 	// Binary tree operations
-	void insert(int);
-	bool find(int);
+	void insertNode(int);
+	bool searchNode(int) const;
 	bool remove(int);
 	int leafCount();
 	int height();
 	int width();
+	void displayInOrder() const {
+		displayInOrder(root);
+	}
+	void displayPreOrder() const {
+		displayPreOrder(root);
+	}
+	void displayPostOrder() const {
+		displayPostOrder(root);
+	}
 };
