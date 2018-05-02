@@ -1,4 +1,7 @@
+#pragma once
 #include <iostream>
+
+using namespace std;
 
 class TreeNode
 {
@@ -21,10 +24,12 @@ private:
 	TreeNode *root;
 
 	// Private member functions
-	void insert(TreeNode*&, TreeNode*&);
+	void insertNode(TreeNode*&, TreeNode*&);
 	void destroySubTree(TreeNode*&);
 	bool deleteNode(int, TreeNode*&);
-	bool makeDeletion(TreeNode*&);
+	int leafCount(TreeNode*) const;
+	int height(TreeNode*) const;
+	void width(TreeNode*, int, int[], int) const;
 	void displayInOrder(TreeNode*) const;
 	void displayPreOrder(TreeNode*) const;
 	void displayPostOrder(TreeNode*) const;
@@ -36,12 +41,16 @@ public:
 	~IntBinaryTree();
 
 	// Binary tree operations
-	void insertNode(int);
+	void insert(int);
 	bool searchNode(int) const;
 	bool remove(int);
-	int leafCount();
-	int height();
-	int width();
+	int width() const;
+	int leafCount() const {
+		return leafCount(root);
+	}
+	int height() const {
+		return height(root);
+	}
 	void displayInOrder() const {
 		displayInOrder(root);
 	}

@@ -3,24 +3,32 @@
 using namespace std;
 
 int main() {
-	IntBinaryTree tree = IntBinaryTree();
-	tree.insertNode(10);
-	tree.insertNode(87);
-	tree.insertNode(9);
-	tree.insertNode(55);
-	tree.insertNode(13);
-	tree.insertNode(40);
-	tree.insertNode(22);
-	tree.insertNode(1);
-	tree.insertNode(0);
-	tree.insertNode(77);
-	tree.insertNode(0);
-	tree.insertNode(4);
-	tree.insertNode(55);
-	tree.insertNode(33);
-	tree.insertNode(22);
+	IntBinaryTree *tree = new IntBinaryTree();
+	tree->insert(10);
+	tree->insert(87);
+	tree->insert(9);
+	tree->insert(55);
+	tree->insert(13);
+	tree->insert(40);
+	tree->insert(22);
+	tree->insert(1);
+	tree->insert(0);
+	tree->insert(77);
+	tree->insert(0);
+	tree->insert(4);
+	tree->insert(55);
+	tree->insert(33);
+	tree->insert(22);
 
-	if (tree.searchNode(10)) tree.displayInOrder();
+	//tree.remove(22);
+
+	//if (tree.searchNode(0)) tree.displayPreOrder();
+
+	cout << "width: " << tree->width() << endl;
+	//tree.width();
+
+	delete tree;
+
 
 	cin.get();
 	return 0;
