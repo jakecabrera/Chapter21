@@ -113,7 +113,7 @@ int getMenuOption() {
 		getline(cin, input);
 
 		// Validate input as an integer
-		if (regex_match(input, regex("0*[1-6]{1}"))) {
+		if (regex_match(input, regex("[1-6]{1}"))) {
 			try
 			{
 				// Input is verified to be a number 1-8
@@ -154,7 +154,7 @@ int getInt() {
 		getline(cin, input);
 
 		// Validate input as an integer
-		if (regex_match(input, regex("\\d+"))) {
+		if (regex_match(input, regex("(-)?\\d+"))) {
 			try
 			{
 				// Input is verified to be just numbers
@@ -270,7 +270,7 @@ void leafCount(IntBinaryTree &tree) {
 
 void treeHeight(IntBinaryTree &tree) {
 	cout << "You have chosen to get the height of the tree:" << endl;
-	cout << "The trees height is [" << tree.height() << "]." << endl << endl;
+	cout << "The trees height is [" << tree.height() << "] nodes." << endl << endl;
 	waitToContinue();
 }
 
