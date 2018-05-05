@@ -288,5 +288,3 @@ void treeWidth(IntBinaryTree &tree) {
 	cout << "The trees widest level is [" << tree.width() << "] nodes wide." << endl << endl;
 	waitToContinue();
 }
-
-// 10, 87, 9, 55, 13, 40, 22,1,0,77, 0, 4, 55, 33, 22
