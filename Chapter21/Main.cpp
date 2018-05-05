@@ -1,14 +1,15 @@
 /*
-* Author:	Jake Cabrera
-* Date:		05/02/2018
-* 
-* Chapter 21 programming assignment
-* Integer Binary Tree
-*/
+ * Author:	Jake Cabrera
+ * Date:	05/02/2018
+ * 
+ * Chapter 21 programming assignment
+ * Integer Binary Tree
+ */
 
 #include <string>
 #include <iostream>
 #include <regex>
+#include <queue>
 #include "IntBinaryTree.h"
 
 using namespace std;
@@ -16,7 +17,7 @@ using namespace std;
 // Function prototypes
 void displayMenu();
 int getMenuOption();
-int getInt();
+queue<int> getInt();
 void waitToContinue();
 void showErrorMessage(string msg);
 void insertIntoTree(IntBinaryTree&);
@@ -143,38 +144,51 @@ int getMenuOption() {
 // user.
 // *********************************************************
 
-int getInt() {
+queue<int> getInt() {
 	string input;
-	int x;
+	queue<int> *inputArr = nullptr;
 	bool validInput = false;
 
 	// Keep asking for valid input until received
 	do {
-		cout << "Please enter an integer: " << flush;
+		cout << "Please enter a single integer or a list of integers separated by commas: " << flush;
 		getline(cin, input);
 
-		// Validate input as an integer
-		if (regex_match(input, regex("\\d+"))) {
+		if (inputArr) delete inputArr;
+		inputArr = new queue<int>();
+
+		// Validate input as an integer or list of integers
+		if (regex_match(input, regex("^[ ]*-?\\d+([ ]*,[ ]*-?\\d+)*[ ]*$"))) {
 			try
 			{
-				// Input is verified to be just numbers
-				// Let's see if it will fit in an int variable
-				x = stoi(input);
+				// Split the input based on a comma as a delimiter
+				vector<string> inputSplit;
+				size_t pos = 0;
+				while ((pos = input.find(",")) != string::npos) {
+					inputArr->push(stoi(input.substr(0, pos)));
+					input.erase(0, pos + 1);
+				}
+				// If there are no commas in input then push this final value into the queue
+				inputArr->push(stoi(input));
+
+				// If we got to here, input was valid and all integers were successfully converted
+				// and stored in the queue.
 				validInput = true;
 			}
-			catch (const std::out_of_range&) {
-				showErrorMessage("Input is too large to be an integer.");
+			catch (const std::out_of_range&) 
+			{
+				showErrorMessage("Atleast one input is too large to be an integer.");
 			}
 			catch (const std::exception&)
 			{
 				showErrorMessage("Something unexpected happened.");
 			}
 		}
-		else showErrorMessage("Input must be an integer.");
+		else showErrorMessage("Input must be an integer or a comma separated list of integers.");
 	} while (!validInput);
 
 	cout << endl;
-	return x;
+	return *inputArr;
 }
 
 // *********************************************************
@@ -220,9 +234,15 @@ void showErrorMessage(string msg) {
 
 void insertIntoTree(IntBinaryTree &tree) {
 	cout << "You have chosen to insert a value into the tree." << endl;
-	int num = getInt();
-	tree.insert(num);
-	cout << "Value of [" << num << "] inserted into the tree." << endl << endl;
+	queue<int> inputs = getInt();
+	cout << "Inputs ";
+	while (!inputs.empty()) {
+		int x;
+		tree.insert(inputs.front());
+		cout << "[" << inputs.front() << "] ";
+		inputs.pop();
+	}
+	cout << "entered into the tree." << endl << endl;
 	waitToContinue();
 }
 
@@ -289,4 +309,4 @@ void treeWidth(IntBinaryTree &tree) {
 	waitToContinue();
 }
 
-// 10, 87, 9, 55, 13, 40, 22,1,0,77, 0, 4, 55, 33, 22
+// 10, 87, 9, 55, 13, 40, 22, 1, 0, 77, 0, 4, 55, 33, 22

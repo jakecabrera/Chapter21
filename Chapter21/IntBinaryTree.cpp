@@ -52,6 +52,7 @@ void IntBinaryTree::insert(int num) {
 // *********************************************************
 // name:		insertNode
 // called by:	insert
+//				deleteNode
 // passed:		TreeNode*& nodePtr as node to check for insertion
 //				TreeNode*& newNode as new node to insert
 // returns:		nothing
@@ -113,6 +114,7 @@ bool IntBinaryTree::remove(int num) {
 // passed:		int as number to remove
 // returns:		bool as whether the value was removed
 // calls:		deleteNode
+//				insertNode
 // The deleteNode function deletes a given value from a given
 // portion of the tree if it exists.
 // *********************************************************
@@ -199,6 +201,7 @@ int IntBinaryTree::width() const {
 //				int as current level being checked
 //				int[] as array containing running count of 
 //					nodes per level.
+//				int as farthest level to check
 // returns:		nothing
 // calls:		width(TreeNode*, int, int)
 // The width function is an overloaded function for
@@ -206,14 +209,14 @@ int IntBinaryTree::width() const {
 // *********************************************************
 
 void IntBinaryTree::width(TreeNode *nodePtr, int level, int levelWidths[], int maxLevel) const {
-	if (!nodePtr || level >= maxLevel) return;
-	
-	// the node exists on this level so increment this levels width
-	levelWidths[level]++;
+	if (nodePtr && level < maxLevel) {
+		// the node exists on this level so increment this levels width
+		levelWidths[level]++;
 
-	// get the width of the next level, checking both sides
-	width(nodePtr->right, level + 1, levelWidths, maxLevel);
-	width(nodePtr->left, level + 1, levelWidths, maxLevel);
+		// get the width of the next level, checking both sides
+		width(nodePtr->right, level + 1, levelWidths, maxLevel);
+		width(nodePtr->left, level + 1, levelWidths, maxLevel);
+	}
 }
 
 // *********************************************************
