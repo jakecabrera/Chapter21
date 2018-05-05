@@ -182,7 +182,7 @@ int IntBinaryTree::height(TreeNode *nodePtr) const {
 int IntBinaryTree::width() const {
 	int treeHeight = height();
 	int *levelWidths = new int[treeHeight]{}; // for holding the count of nodes per level
-	width(root, 0, levelWidths, treeHeight);
+	width(root, 0, levelWidths, treeHeight); 
 
 	// get the largest width
 	int largestWidth = 0;
@@ -203,6 +203,8 @@ int IntBinaryTree::width() const {
 // calls:		width(TreeNode*, int, int)
 // The width function is an overloaded function for
 // recursively calling itself to find the width of the tree.
+// It takes an int array and fills the array recursively with
+// the count of nodes per level.
 // *********************************************************
 
 void IntBinaryTree::width(TreeNode *nodePtr, int level, int levelWidths[], int maxLevel) const {
