@@ -116,7 +116,7 @@ int getMenuOption() {
 		if (regex_match(input, regex("[1-6]{1}"))) {
 			try
 			{
-				// Input is verified to be a number 1-8
+				// Input is verified to be a number 1-6
 				option = stoi(input);
 				validInput = true;
 			}
